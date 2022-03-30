@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理登陆</title>
+    <link rel="stylesheet" href="statics/css/font.css">
+    <link rel="stylesheet" href="statics/css/login.css">
+    <link rel="stylesheet" href="statics/css/xadmin.css">
+    <script src="statics/layui/layui.js"></script>
+
+</head>
+<body class="login-bg">
+
+<div class="login layui-anim layui-anim-up">
+    <div class="message">校园商铺-管理登录</div>
+    <div id="darkbannerwrap"></div>
+    <form method="post" class="layui-form" >
+        <input name="loginName" placeholder="用户名"  type="text" lay-verify="required" lay-reqText="请输入用户名" class="layui-input" >
+        <hr class="hr15">
+        <input name="password" lay-verify="required" lay-reqText="请输入密码" placeholder="密码"  type="password" class="layui-input">
+        <hr class="hr15">
+        <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+        <hr class="hr20" >
+    </form>
+</div>
+
+</body>
+
+<script>
+    layui.use(['form','jquery','layer'],function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        //监听表单的提交事件
+        form.on("submit(login)",function (data) {
+            $.post("admin/checklogin",data.field,function(result){
+                console.log(result);
+                //判断是否成功
+                if(result.success){
+                    location.href="/admin/index";
+                }else{
+                    layer.msg(result.errMsg);
+                }
+            },"json");
+            //禁止页面跳转
+            return false;
+        })
+    });
+</script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../statics/layui/css/layui.css">
+
+</head>
+<body>
+<ul class="layui-nav" lay-filter="">
+    <li class="layui-nav-item"><a href="">首页</a></li>
+<!--    <li class="layui-nav-item layui-this"><a href="">产品</a></li>-->
+<!--    <li class="layui-nav-item"><a href="">大数据</a></li>-->
+    <li class="layui-nav-item">
+        <a href="javascript:">数据管理</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="">区域信息管理</a></dd>
+<!--            <dd><a href="">后台模版</a></dd>-->
+<!--            <dd><a href="">电商平台</a></dd>-->
+        </dl>
+    </li>
+</ul>
+<script type="text/javascript" src="../../../statics/layui/layui.js"></script>
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+</script>
+</body>
+</html>
