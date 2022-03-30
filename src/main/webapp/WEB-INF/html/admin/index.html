@@ -8,25 +8,69 @@
 </head>
 <body>
 <ul class="layui-nav" lay-filter="">
-    <li class="layui-nav-item"><a href="">首页</a></li>
+    <li class="layui-nav-item"><a id="indexa">首页</a></li>
 <!--    <li class="layui-nav-item layui-this"><a href="">产品</a></li>-->
 <!--    <li class="layui-nav-item"><a href="">大数据</a></li>-->
     <li class="layui-nav-item">
         <a href="javascript:">数据管理</a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
-            <dd><a href="">区域信息管理</a></dd>
+            <dd><a id="area">区域信息管理</a></dd>
 <!--            <dd><a href="">后台模版</a></dd>-->
 <!--            <dd><a href="">电商平台</a></dd>-->
         </dl>
     </li>
 </ul>
+<div id="index" style="margin-top: 40px;margin-left: 50px;margin-right: 50px" >
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6" style="padding-right: 50px;">
+            <div class="layui-panel" style="background: #C7EDCC;height: 200px;border-radius: 20px">
+                <div style="padding: 30px;">一个面板</div>
+            </div>
+        </div>
+        <div class="layui-col-md6" style="padding-left: 50px">
+            <div class="layui-panel" style="background: #FFF2E2;height: 200px;border-radius: 20px">
+                <div style="padding: 30px;">一个面板</div>
+            </div>
+        </div>
+        <div class="layui-col-md6" style="padding-right: 50px">
+            <div class="layui-panel" style="background: #DCE2F1;height: 200px;border-radius: 20px">
+                <div style="padding: 30px;">一个面板</div>
+            </div>
+        </div>
+        <div class="layui-col-md6"  style="padding-left: 50px">
+            <div class="layui-panel" style="background:#FDE6E0;height: 200px;border-radius: 20px">
+                <div style="padding: 30px;">一个面板</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="areadiv" >
+<iframe id="manageiframe"
+        style="width: 90%;height: 800px;margin-left: 5%;border: medium none;" src=""></iframe>
+</div>
 <script type="text/javascript" src="../../../statics/layui/layui.js"></script>
 <script>
-    //注意：导航 依赖 element 模块，否则无法进行功能性操作
-    layui.use('element', function(){
-        var element = layui.element;
 
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use(['element','jquery'], function(){
+        var element = layui.element;
+        var $ = layui.jquery;
         //…
+
+        $('#indexa').click(function (){
+            $('#index').show();
+            $('#manageiframe').hide();
+            //$("#areadiv").removeAttr("hidden");
+        })
+
+        $('#area').click(function (){
+            $('#index').hide();
+            $('#manageiframe').show();
+            //$("#areadiv").removeAttr("hidden");
+            $('#manageiframe').attr("src", "/manage/area");
+        })
+
     });
 </script>
 </body>
