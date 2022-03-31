@@ -21,12 +21,17 @@ public class AreaController {
 
     @RequestMapping(value = "/arealist",method = RequestMethod.GET)
     @ResponseBody
-    public DataGridViewResult list(int page,int limit) {
+    public DataGridViewResult list(int page,int limit,String areaName) {
         //System.out.println("page:"+page+",limit:"+limit);
         //设置分页信息(当前页码,每页显示数量)
         PageHelper.startPage(page, limit);
         //调用分页查询账单列表的方法
-        List<Area> areaList = areaService.selectAreaList(new Area());
+        List<Area> areaList = null;
+        if ("".equals(areaName)||areaName == null){
+            areaList = areaService.selectAreaList(new Area());
+        }else{
+            areaList = areaService.selectAreaList(new Area().setAreaName(areaName));
+        }
         //创建分页对象
         PageInfo<Area> pageInfo = new PageInfo<Area>(areaList);
         //返回数据

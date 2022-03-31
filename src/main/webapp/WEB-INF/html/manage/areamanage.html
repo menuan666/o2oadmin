@@ -19,15 +19,15 @@
     <form class="layui-form layui-form-pane" method="post">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">开始日期</label>
+                <label class="layui-form-label">区域名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="areaname" id="areaname"  autocomplete="off" class="layui-input" placeholder="请输入名字">
+                    <input type="text" name="areaName" id="areaName"  autocomplete="off" class="layui-input" placeholder="请输入名字">
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="doSearch">搜索</button>
+                <button  type="button" class="layui-btn" lay-submit lay-filter="doSearch">搜索</button>
                 <button type="reset" class="layui-btn layui-btn-warm">重置</button>
             </div>
         </div>
@@ -65,22 +65,34 @@
 
 
         //渲染表格组件
-        table.render({
-            elem:"#areaTable",//绑定表格元素，推荐使用ID选择器
-            url:"/area/arealist",//异步请求地址,加入分页后，默认使用page(当前页码)和limit(每页显示数量)作为参数名称
-            page:true,//开启分页
-            toolbar:"#areaToolbar",
+        const tableIns = table.render({
+            elem: "#areaTable",//绑定表格元素，推荐使用ID选择器
+            url: "/area/arealist",//异步请求地址,加入分页后，默认使用page(当前页码)和limit(每页显示数量)作为参数名称
+            page: true,//开启分页
+            toolbar: "#areaToolbar",
             cols: [[ //表头
                 //field属性：字段属性，该属性与实体类的属性名一致
                 //title属性：表头文本
-                {type:"checkbox",fixed:"left",width:80,align:"center"},
-                {field: 'areaId', title: '区域ID',align:"center"}
-                ,{field: 'areaName', title: '区域名称',align:"center"}
-                ,{field: 'priority', title: '区域权重',align:"center"}
-                ,{field: 'createTime', title: '创建时间',align:"center"}
-                ,{field: 'lastEditTime', title: '修改时间',align:"center"}
-                ,{title:"操作",toolbar: "#billRowBar",align:"center"}
+                {type: "checkbox", fixed: "left", width: 80, align: "center"},
+                {field: 'areaId', title: '区域ID', align: "center"}
+                , {field: 'areaName', title: '区域名称', align: "center"}
+                , {field: 'priority', title: '区域权重', align: "center"}
+                , {field: 'createTime', title: '创建时间', align: "center"}
+                , {field: 'lastEditTime', title: '修改时间', align: "center"}
+                , {title: "操作", toolbar: "#billRowBar", align: "center"}
             ]]
+        });
+        form.on("submit(doSearch)",function (data) {
+            console.log(data.field);
+            table.reload('areaTable',{
+               //method:'get',
+                where:data.field,//查询条件
+                page:{
+                    curr:1
+                }
+            });
+            //禁止页面刷新
+            return false;
         });
     });
 </script>
