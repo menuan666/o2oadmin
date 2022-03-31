@@ -144,12 +144,52 @@
             });
         }
 
+        function batchDelete() {
+            //获取表格对象
+            var checkStatus = table.checkStatus('areaTable'); //areaTable 即为基础参数 id 对应的值
+            //判断是否有选中行
+            if(checkStatus.data.length>0){
+                //定义数组，保存选中行的ID
+                var idArr = [];
+                //循环遍历获取选中行(目的是获取选中的每一行的ID值)
+                for (let i = 0; i < checkStatus.data.length; i++) {
+                    //将选中的ID值添加到数组的末尾
+                    idArr.push(checkStatus.data[i].areaId);
+                }
+                //将数组转成字符串
+                var ids = idArr.join(",");
+                //提示用户是否删除
+                layer.confirm("确定要删除这<font color='red'>"+checkStatus.data.length+"</font>条数据吗？",{icon:3,title:"提示"},function (index) {
+                    //发送ajax请求
+                    $.post("/area/batchdeletearea",{"ids":ids},function(result){
+                        if(result.success){
+                            layer.alert(result.message,{icon:1});
+                            //刷新数据表格
+                            tableIns.reload();
+                        }else{
+                            layer.alert(result.message,{icon:2});
+                        }
+                    },"json");
+                    //关闭提示框
+                    layer.close(index);
+                });
+            }else{
+                layer.msg("请选择要删除的数据");
+            }
+
+        }
+
         table.on("toolbar(areaTable)",function (obj) {
             switch (obj.event) {
                 //添加
                 case 'add':
                     openAddWindow();
                     break;
+                //批量删除
+                case 'batchDelete':
+                    batchDelete();
+                    break;
+
             }
         });
 

@@ -74,7 +74,7 @@ public class AreaController {
     @RequestMapping("/deletearea")
     @ResponseBody
     public Map<String,Object> deletearea(Long areaId){
-        System.out.println(areaId);
+        //System.out.println(areaId);
         Map<String,Object> map = new HashMap<String,Object>();
         if(areaService.deleteAreaByAreaId(areaId)>0){
             map.put("success",true);
@@ -85,4 +85,20 @@ public class AreaController {
         }
         return map;
     }
+    @RequestMapping("/batchdeletearea")
+    @ResponseBody
+    public Map<String,Object> batchdeletearea(String ids){
+        //ids = "( "+ids+" )";
+        System.out.println(ids);
+        Map<String,Object> map = new HashMap<String,Object>();
+        if(areaService.deleteAreaByAreaIds(ids)>0){
+            map.put("success",true);
+            map.put("message","批量删除成功");
+        }else{
+            map.put("success",false);
+            map.put("message","批量删除失败");
+        }
+        return map;
+    }
+
 }

@@ -6,6 +6,8 @@ import com.o2oadmin.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -62,6 +64,7 @@ public class AreaServiceIpml implements AreaService {
         return AreaDao.updateArea(Area);
     }
 
+
     /**
      * 批量删除区域信息管理
      *
@@ -71,8 +74,13 @@ public class AreaServiceIpml implements AreaService {
     @Override
     public int deleteAreaByAreaIds(String areaIds)
     {
-        //return AreaDao.deleteAreaByAreaIds(Convert.toStrArray(areaIds));
-        return 0;
+        //ArrayList<String> list = new ArrayList<String>();
+        String[] str = areaIds.split(",");
+        System.out.println(Arrays.toString(str));
+        return AreaDao.deleteAreaByAreaIds(str);
+
+       // return AreaDao.deleteAreaByAreaIds(areaIds);
+
     }
 
     /**

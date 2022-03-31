@@ -61,7 +61,7 @@
         delete from tb_area where area_id = #{areaId}
     </delete>
 
-    <delete id="deleteAreaByAreaIds" parameterType="String">
+    <delete id="deleteAreaByAreaIds" parameterType="java.lang.String">
         delete from tb_area where area_id in
         <foreach item="areaId" collection="array" open="(" separator="," close=")">
             #{areaId}
