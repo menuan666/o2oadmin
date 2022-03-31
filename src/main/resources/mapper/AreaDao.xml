@@ -21,11 +21,13 @@
         <where>
             <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
         </where>
+        order by area_id desc
     </select>
 
     <select id="selectAreaByAreaId" parameterType="Long" resultMap="AreaResult">
         <include refid="selectAreaVo"/>
         where area_id = #{areaId}
+
     </select>
 
     <insert id="insertArea" parameterType="Area" useGeneratedKeys="true" keyProperty="areaId">

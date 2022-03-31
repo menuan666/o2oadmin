@@ -38,7 +38,7 @@
 <!-- 数据表格开始 -->
 <div style="width: 80%;margin-left: 100px">
     <!-- 表格 -->
-    <table class="layui-hide" id="areaTable" lay-filter="billTable"></table>
+    <table class="layui-hide" id="areaTable" lay-filter="areaTable"></table>
 
     <!-- 头部工具栏 -->
     <script type="text/html" id="areaToolbar">
@@ -56,14 +56,49 @@
 </div>
 <!-- 数据表格结束 -->
 
+
+<!-- 添加和修改账单的弹出层开始 -->
+<div id="addOrUpdateAreaDiv" style="display: none;margin: 10px">
+    <form id="dataFrm" method="post" class="layui-form layui-form-pane"
+          lay-filter="dataFrm">
+        <!-- 隐藏域，保存当前账单的ID -->
+        <input type="hidden" name="id">
+        <div class="layui-form-item">
+            <label class="layui-form-label">区域名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="areaName" placeholder="请输入区域名称"
+                       lay-verify="required"
+                       lay-reqText="请输入区域名称" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">区域权重</label>
+            <div class="layui-input-block">
+                <input type="text" name="priority" placeholder="请输入区域权重"
+                       lay-verify="required"
+                       lay-reqText="请输入区域权重" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item" style="text-align: center;">
+            <button type="button" class="layui-btn" lay-submit lay-filter="doSubmit">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置
+            </button>
+        </div>
+    </form>
+</div>
+<!-- 添加和修改账单的弹出层结束-->
+
+
 <!--<script src="${pageContext.request.contextPath}/statics/layui/layui.js"></script>-->
 <script>
     layui.use(['form','jquery','table'],function () {
         var form =layui.form;
         var $ = layui.jquery;
         var table = layui.table;
-
-
+        var url = '';
         //渲染表格组件
         const tableIns = table.render({
             elem: "#areaTable",//绑定表格元素，推荐使用ID选择器
@@ -94,6 +129,44 @@
             //禁止页面刷新
             return false;
         });
+        var mainIndex ;
+        function openAddWindow() {
+            mainIndex = layer.open({
+                type: 1,//弹出层类型
+                title: "添加区域",
+                area: ['300px', '220px'],
+                content: $("#addOrUpdateAreaDiv"),//引用的窗口代码
+                success: function () {
+                    //清空表单数据
+                    $("#dataFrm")[0].reset();//JavaScript中的方法
+                    url = "/area/addarea";
+                }
+            });
+        }
+
+        table.on("toolbar(areaTable)",function (obj) {
+            switch (obj.event) {
+                //添加
+                case 'add':
+                    openAddWindow();
+                    break;
+            }
+        });
+        form.on("submit(doSubmit)",function (data) {
+            $.post(url,data.field,function(result){
+                if(result.success){
+                    layer.alert(result.message,{icon:1});
+                    //关闭窗口
+                    layer.close(mainIndex);
+                    //刷新数据表格
+                    tableIns.reload();
+                }else{
+                    layer.alert(result.message,{icon:2});
+                }
+            },"json");
+            return false;
+        })
+
     });
 </script>
 </body>
