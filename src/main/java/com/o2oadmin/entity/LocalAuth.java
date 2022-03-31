@@ -1,5 +1,6 @@
 package com.o2oadmin.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -17,10 +18,12 @@ public class LocalAuth {
     //密码
     private String password;
     //创建时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
     //修改时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastEditTime;
     //个人信息
-    private PersonInfo personInfo;
+    private Long userId;
 
 }
