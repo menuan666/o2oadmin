@@ -43,7 +43,7 @@ public class AreaController {
     }
     @RequestMapping("/addarea")
     @ResponseBody
-    public Map<String,Object> addBill(Area area){
+    public Map<String,Object> addarea(Area area){
         Map<String,Object> map = new HashMap<String,Object>();
         area.setCreateTime(new Date());
         if(areaService.insertArea(area)>0){
@@ -52,6 +52,36 @@ public class AreaController {
         }else{
             map.put("success",false);
             map.put("message","添加失败");
+        }
+        return map;
+    }
+    @RequestMapping("/updatearea")
+    @ResponseBody
+    public Map<String,Object> updatearea(Area area){
+        System.out.println(area);
+        Map<String,Object> map = new HashMap<String,Object>();
+        area.setLastEditTime(new Date());
+        System.out.println(area);
+        if(areaService.updateArea(area)>0){
+            map.put("success",true);
+            map.put("message","修改成功");
+        }else{
+            map.put("success",false);
+            map.put("message","修改失败");
+        }
+        return map;
+    }
+    @RequestMapping("/deletearea")
+    @ResponseBody
+    public Map<String,Object> deletearea(Long areaId){
+        System.out.println(areaId);
+        Map<String,Object> map = new HashMap<String,Object>();
+        if(areaService.deleteAreaByAreaId(areaId)>0){
+            map.put("success",true);
+            map.put("message","删除成功");
+        }else{
+            map.put("success",false);
+            map.put("message","删除失败");
         }
         return map;
     }

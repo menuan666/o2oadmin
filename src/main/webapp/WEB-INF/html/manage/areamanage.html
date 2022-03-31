@@ -48,7 +48,7 @@
         </div>
     </script>
     <!-- 行工具栏 -->
-    <script type="text/html" id="billRowBar">
+    <script type="text/html" id="areaRowBar">
         <button class="layui-btn layui-btn-xs" lay-event="edit">编辑</button>
         <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</button>
     </script>
@@ -62,7 +62,7 @@
     <form id="dataFrm" method="post" class="layui-form layui-form-pane"
           lay-filter="dataFrm">
         <!-- 隐藏域，保存当前账单的ID -->
-        <input type="hidden" name="id">
+        <input type="hidden" name="areaId">
         <div class="layui-form-item">
             <label class="layui-form-label">区域名称</label>
             <div class="layui-input-block">
@@ -114,7 +114,7 @@
                 , {field: 'priority', title: '区域权重', align: "center"}
                 , {field: 'createTime', title: '创建时间', align: "center"}
                 , {field: 'lastEditTime', title: '修改时间', align: "center"}
-                , {title: "操作", toolbar: "#billRowBar", align: "center"}
+                , {title: "操作", toolbar: "#areaRowBar", align: "center"}
             ]]
         });
         form.on("submit(doSearch)",function (data) {
@@ -152,8 +152,54 @@
                     break;
             }
         });
+
+        function openUpdateWindow(data) {
+            mainIndex =layer.open({
+                type:1,//弹出层类型
+                title:"修改账单",
+                area: ['300px', '220px'],
+                content:$("#addOrUpdateAreaDiv"),//引用的窗口代码
+                success:function () {
+                    //表单数据回显
+                    form.val("dataFrm",data);
+                    //修改请求
+                    url = "/area/updatearea";
+                }
+            });
+        }
+
+        function deleteById(data) {
+            //提示用户确认是否删除
+            layer.confirm("确定要删除区域[<font color='red'>"+data.areaName+"</font>]吗？",{icon:3,title:"提示"},function (index) {
+            //发送ajax请求
+            $.post("/area/deletearea",{"areaId":data.areaId},function(result){
+                if(result.success){
+                    layer.alert(result.message,{icon:1});
+                    //刷新数据表格
+                    tableIns.reload();
+                }else{
+                    layer.alert(result.message,{icon:2});
+                }
+            },"json");
+            //关闭提示框
+            layer.close(index);
+        });
+        }
+
+        table.on("tool(areaTable)",function (obj) {
+            switch (obj.event) {
+                //编辑
+                case 'edit':
+                    openUpdateWindow(obj.data);
+                    break;
+                case 'delete':
+                    deleteById(obj.data);
+                    break;
+            }
+        });
         form.on("submit(doSubmit)",function (data) {
             $.post(url,data.field,function(result){
+                console.log(data.field)
                 if(result.success){
                     layer.alert(result.message,{icon:1});
                     //关闭窗口

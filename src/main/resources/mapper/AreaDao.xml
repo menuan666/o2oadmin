@@ -51,7 +51,7 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="areaName != null and areaName != ''">area_name = #{areaName},</if>
             <if test="priority != null">priority = #{priority},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
+<!--            <if test="createTime != null">create_time = #{createTime},</if>-->
             <if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
         </trim>
         where area_id = #{areaId}
