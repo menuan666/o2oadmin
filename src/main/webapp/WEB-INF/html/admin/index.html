@@ -6,14 +6,7 @@
     <link rel="stylesheet" href="../../../statics/layui/css/layui.css">
 
 </head>
-<!--<style>-->
-<!--    .one{-->
-<!--        font-family:"微软雅黑",serif;  //把 font-family: "设置字体名称" 里的字体名称改成你需要-->
-<!--    font-size:12px;  //字体大小-->
-<!--    color:red;  //字体颜色-->
-<!--    font-weight:normal; //加粗 normal默认值 bold粗体 数值100-900-->
-<!--    }-->
-<!--</style>-->
+
 <body>
 <ul class="layui-nav" lay-filter="">
     <li class="layui-nav-item"><a id="indexa">首页</a></li>
@@ -23,6 +16,7 @@
         <a href="javascript:">数据管理</a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
             <dd><a id="area">区域信息管理</a></dd>
+            <dd><a id="localauth">用户账密管理</a></dd>
 <!--            <dd><a href="">后台模版</a></dd>-->
 <!--            <dd><a href="">电商平台</a></dd>-->
         </dl>
@@ -81,6 +75,12 @@
             $('#manageiframe').show();
             //$("#areadiv").removeAttr("hidden");
             $('#manageiframe').attr("src", "/manage/area");
+        })
+        $('#localauth').click(function (){
+            $('#index').hide();
+            $('#manageiframe').show();
+            //$("#areadiv").removeAttr("hidden");
+            $('#manageiframe').attr("src", "/manage/localauth");
         })
 
     });
