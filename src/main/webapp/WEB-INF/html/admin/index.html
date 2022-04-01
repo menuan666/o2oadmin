@@ -5,6 +5,24 @@
     <title>Title</title>
     <link rel="stylesheet" href="../../../statics/layui/css/layui.css">
 </head>
+<style type="text/css">
+    .card {
+        border: none;
+        -webkit-transition: all 250ms cubic-bezier(0.02, 0.01, 0.47, 1);
+        transition: all 250ms cubic-bezier(.02, .01, .47, 1);
+    }
+
+    .card:hover {
+        box-shadow: 0 16px 32px 0 rgba(48, 55, 66, 0.15);
+        transform: translate(0,-5px);
+        transition-delay: 0s !important;
+    }
+
+    .box-shadow {
+        -webkit-box-shadow: 0 0.25rem 1rem rgba(48, 55, 66, 0.15);
+        box-shadow: 0 4px 16px rgba(48, 55, 66, 0.15);
+    }
+</style>
 <body>
 <ul class="layui-nav" lay-filter="">
     <li class="layui-nav-item"><a id="indexa">首页</a></li>
@@ -22,26 +40,26 @@
 </ul>
 <div id="index" style="margin-top: 40px;margin-left: 50px;margin-right: 50px" >
     <div class="layui-row layui-col-space15">
-        <div class="layui-col-md6 layui-anim layui-anim-up" style="padding-right: 50px;">
-            <div class="layui-panel" style="background: #C7EDCC;border-radius: 20px">
+        <div class="layui-col-md6 layui-anim layui-anim-up " style="padding-right: 50px;">
+            <div class="layui-panel card box-shadow" style="background: #C7EDCC;border-radius: 20px">
                 <div style="padding: 30px;"><img style="margin-left: 70px" src="../../../statics/images/order.png" width="200" height="200"/>
                     <span style="font-family: STHupo,华文琥珀,sans-serif;font-size: xx-large;margin-left: 100px">订单数量:1888单</span></div>
             </div>
         </div>
         <div class="layui-col-md6 layui-anim layui-anim-up" style="padding-left: 50px">
-            <div class="layui-panel l" style="background: #FFF2E2;border-radius: 20px">
+            <div class="layui-panel card box-shadow" style="background: #FFF2E2;border-radius: 20px">
                 <div style="padding: 30px;"><img style="margin-left: 70px" src="../../../statics/images/users.png" width="200" height="200"/>
                     <span style="font-family: STHupo,华文琥珀,sans-serif;font-size: xx-large;margin-left: 100px">用户数量:18</span></div>
             </div>
         </div>
         <div class="layui-col-md6 layui-anim layui-anim-up" style="padding-right: 50px">
-            <div class="layui-panel " style="background: #DCE2F1;border-radius: 20px">
+            <div class="layui-panel card box-shadow" style="background: #DCE2F1;border-radius: 20px">
                 <div style="padding: 30px;"><img style="margin-left: 70px" src="../../../statics/images/money.png" height="200" width="200"/>
                     <span style="font-family: STHupo,华文琥珀,sans-serif;font-size: xx-large;margin-left: 100px">销售额度：￥5683.21</span></div>
             </div>
         </div>
         <div class="layui-col-md6 layui-anim layui-anim-up"  style="padding-left: 50px">
-            <div class="layui-panel " style="background:#FDE6E0;border-radius: 20px">
+            <div class="layui-panel card box-shadow" style="background:#FDE6E0;border-radius: 20px">
                 <div style="padding: 30px;"><img style="margin-left: 70px" src="../../../statics/images/product.png" height="200" width="200"/>
                     <span style="font-family: STHupo,华文琥珀,sans-serif;font-size: xx-large;margin-left: 100px">商品数量：153</span></div>
             </div>
