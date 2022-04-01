@@ -62,12 +62,17 @@ public class AreaController {
         Map<String,Object> map = new HashMap<String,Object>();
         area.setLastEditTime(new Date());
         System.out.println(area);
-        if(areaService.updateArea(area)>0){
-            map.put("success",true);
-            map.put("message","修改成功");
-        }else{
+        try {
+            if(areaService.updateArea(area)>0){
+                map.put("success",true);
+                map.put("message","修改成功");
+            }else{
+                map.put("success",false);
+                map.put("message","修改失败");
+            }
+        }catch(Exception e){
             map.put("success",false);
-            map.put("message","修改失败");
+            map.put("message","请检查数据库");
         }
         return map;
     }

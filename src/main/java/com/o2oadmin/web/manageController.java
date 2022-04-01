@@ -18,4 +18,9 @@ public class manageController {
         //首页
         return "/manage/localauthmanage";
     }
+    @RequestMapping(value = "/personinfo", method = RequestMethod.GET)
+    public String personinfo() {
+        //首页
+        return "/manage/personinfomanage";
+    }
 }

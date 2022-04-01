@@ -2,14 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>用户账密信息管理</title>
+    <title>用户信息管理</title>
     <link rel="stylesheet" href="../../../statics/layui/css/layui.css">
     <script src="../../../statics/layui/layui.js"></script>
 </head>
 <body>
-
+<style>
+    .layui-table-cell {
+        text-align: center;
+        height: auto;
+        white-space: normal;
+        line-height: 70px;
+    }
+</style>
 <!-- 标题 -->
-<h1 style="text-align: center">用户账密列表</h1>
+<h1 style="text-align: center">用户列表</h1>
 
 <!-- 查询条件开始 -->
 <div style="width: 80%;margin-left: 10%;text-align: center">
@@ -19,18 +26,38 @@
     <form class="layui-form layui-form-pane" method="post">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">用户ID</label>
+                <label class="layui-form-label">用户昵称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="userId" id="userId" autocomplete="off" class="layui-input"
-                           placeholder="请输入userId">
+                    <input type="text" name="name" id="name" autocomplete="off" class="layui-input"
+                           placeholder="请输入用户昵称">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">用户邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" name="email" id="email" autocomplete="off" class="layui-input"
+                           placeholder="请输入用户邮箱">
                 </div>
             </div>
 
             <div class="layui-inline">
-                <label class="layui-form-label">用户登录名</label>
-                <div class="layui-input-block">
-                    <input type="text" name="username" id="username" autocomplete="off" class="layui-input"
-                           placeholder="请输入用户登录名">
+                <label class="layui-form-label">用户性别</label>
+                <div class="layui-input-inline">
+                    <select name="gender" class="layui-input">
+                        <option value="">请选择用户性别</option>
+                        <option value="0">男</option>
+                        <option value="1">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">用户状态</label>
+                <div class="layui-input-inline">
+                <select name="enableStatus" class="layui-input">
+                    <option value="">请选择用户状态</option>
+                    <option value="0">正常</option>
+                    <option value="1">封禁</option>
+                </select>
                 </div>
             </div>
         </div>
@@ -47,23 +74,23 @@
 <!-- 数据表格开始 -->
 <div style="width: 80%;margin-left: 100px">
     <!-- 表格 -->
-    <table class="layui-hide" id="localauthTable" lay-filter="localauthTable"></table>
+    <table class="layui-hide" id="personinfoTable" lay-filter="personinfoTable"></table>
 
     <!-- 头部工具栏 -->
-    <script type="text/html" id="localauthToolbar">
+    <script type="text/html" id="personinfoToolbar">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="add"><i
+            <button class="layui-btn layui-btn-sm " lay-event="add"><i
                     class="layui-icon layui-icon-add-circle"></i>添加账单
             </button>
-            <button class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="batchDelete"><i
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchDelete"><i
                     class="layui-icon layui-icon-delete"></i>批量删除
             </button>
         </div>
     </script>
     <!-- 行工具栏 -->
-    <script type="text/html" id="localauthRowBar">
+    <script type="text/html" id="personinfoRowBar">
         <button class="layui-btn layui-btn-xs" lay-event="edit">编辑</button>
-        <!--        <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</button>-->
+                <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</button>
     </script>
 
 </div>
@@ -71,7 +98,7 @@
 
 
 <!-- 添加和修改账单的弹出层开始 -->
-<div id="UpdateLocalAuthDiv" style="display: none;margin: 10px">
+<div id="UpdatePersonInfoDiv" style="display: none;margin: 10px">
     <form id="dataFrm" method="post" class="layui-form layui-form-pane"
           lay-filter="dataFrm">
         <!-- 隐藏域，保存当前账单的ID -->
@@ -115,26 +142,46 @@
 
         //渲染表格组件
         const tableIns = table.render({
-            elem: "#localauthTable",//绑定表格元素，推荐使用ID选择器
-            url: "/localauth/localauthlist",//异步请求地址,加入分页后，默认使用page(当前页码)和limit(每页显示数量)作为参数名称
+            elem: "#personinfoTable",//绑定表格元素，推荐使用ID选择器
+            url: "/personinfo/personinfolist",//异步请求地址,加入分页后，默认使用page(当前页码)和limit(每页显示数量)作为参数名称
             page: true,//开启分页
-            toolbar: "#localauthToolbar",
+            toolbar: "#personinfoToolbar",
             cols: [[ //表头
                 //field属性：字段属性，该属性与实体类的属性名一致
                 //title属性：表头文本
-                {type: "checkbox", fixed: "left", width: 80, align: "center"},
-                {field: 'localAuthId', title: '账密ID', align: "center", width: 100}
-                , {field: 'username', title: '唯一登录名', align: "center", width: 200}
-                , {field: 'password', title: '加密密码', align: "center"}
-                , {field: 'createTime', title: '创建时间', align: "center"}
-                , {field: 'lastEditTime', title: '修改时间', align: "center"}
-                , {field: 'userId', title: '用户ID', align: "center", width: 100}
-                , {title: "操作", toolbar: "#localauthRowBar", align: "center", width: 100}
+                {type: "checkbox"},
+                {field: 'userId', title: '用户ID', align: "center", width: 80}
+                , {field: 'name', title: '用户昵称', align: "center"}
+                , {field:'profileImg',title:'用户头像', width: 90,templet:'<div><img src="{{d.profileImg}}" alt="" style="width: 50px;height: 50px"></div>',height:"50px"}
+                , {field: 'email', title: '用户邮箱', align: "center"}
+                , {field: 'gender', title: '用户性别', align: "center",templet: function(d){
+                        if (d.gender=="1") {  // 自定义内容
+                            return "女";
+                        } else if (d.gender=="0") {
+                            return "男";
+                        } else {
+                            return " ";
+                        }
+                    } },
+                , {field: 'balance', title: '余额', align: "center",}
+                , {field: 'enableStatus', title: '用户状态', align: "center",templet: function(d){
+                        if (d.enableStatus=="1") {  // 自定义内容
+                            return "封禁";
+                        } else if (d.enableStatus=="0") {
+                            return "正常";
+                        } else {
+                            return " ";
+                        }
+                    } },
+                , {field: 'createTime', title: '修改时间', align: "center"}
+                , {field: 'lastEditTime', title: '创建时间', align: "center"}
+                , {title: "操作", toolbar: "#personinfoRowBar", align: "center", width: 130}
             ]]
         });
+
         form.on("submit(doSearch)", function (data) {
             console.log(data.field);
-            table.reload('localauthTable', {
+            table.reload('personinfoTable', {
                 //method:'get',
                 where: data.field,//查询条件
                 page: {
@@ -145,8 +192,6 @@
             return false;
         });
         var mainIndex;
-
-
         function openUpdateWindow(data) {
             mainIndex = layer.open({
                 type: 1,//弹出层类型
@@ -161,9 +206,6 @@
                 }
             });
         }
-
-
-
         table.on("tool(localauthTable)", function (obj) {
             switch (obj.event) {
                 //编辑

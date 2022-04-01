@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o2oadmin.dao.PersonInfoDao">
+
+    <resultMap type="PersonInfo" id="PersonInfoResult">
+        <result property="userId"    column="user_id"    />
+        <result property="name"    column="name"    />
+        <result property="profileImg"    column="profile_img"    />
+        <result property="email"    column="email"    />
+        <result property="gender"    column="gender"    />
+        <result property="balance"    column="balance"    />
+        <result property="enableStatus"    column="enable_status"    />
+<!--        <result property="userType"    column="user_type"    />-->
+        <result property="createTime"    column="create_time"    />
+        <result property="lastEditTime"    column="last_edit_time"    />
+    </resultMap>
+
+    <sql id="selectPersonInfoVo">
+        select user_id, name, profile_img, email, gender, balance, enable_status, create_time, last_edit_time from tb_person_info
+    </sql>
+
+    <select id="selectPersonInfoList" parameterType="PersonInfo" resultMap="PersonInfoResult">
+        <include refid="selectPersonInfoVo"/>
+        <where>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+            <if test="enableStatus != null "> and enable_status = #{enableStatus}</if>
+        </where>
+    </select>
+
+    <select id="selectPersonInfoByUserId" parameterType="Long" resultMap="PersonInfoResult">
+        <include refid="selectPersonInfoVo"/>
+        where user_id = #{userId}
+    </select>
+
+
+    <update id="updatePersonInfo" parameterType="PersonInfo">
+        update tb_person_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="profileImg != null">profile_img = #{profileImg},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="balance != null">balance = #{balance},</if>
+            <if test="enableStatus != null">enable_status = #{enableStatus},</if>
+<!--            <if test="userType != null">user_type = #{userType},</if>-->
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+    <delete id="deletePersonInfoByUserId" parameterType="Long">
+        delete from tb_person_info where user_id = #{userId}
+    </delete>
+
+    <delete id="deletePersonInfoByUserIds" parameterType="String">
+        delete from tb_person_info where user_id in
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+
+</mapper>
