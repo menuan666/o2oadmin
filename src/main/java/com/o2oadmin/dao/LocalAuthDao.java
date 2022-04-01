@@ -35,4 +35,19 @@ public interface LocalAuthDao {
      * @return 结果
      */
     public int updateLocalAuth(LocalAuth LocalAuth);
+    /**
+     * 删除用户账号管理
+     *
+     * @param userId 用户账号管理主键
+     * @return 结果
+     */
+    public int deleteLocalAuthByUserId(Long userId);
+
+    /**
+     * 批量删除用户账号管理
+     *
+     * @param userIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteLocalAuthByUserIds(String[] userIds);
 }

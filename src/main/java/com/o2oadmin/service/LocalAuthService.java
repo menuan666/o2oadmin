@@ -28,4 +28,19 @@ public interface LocalAuthService {
      * @return 结果
      */
     public int updateLocalAuth(LocalAuth LocalAuth);
+    /**
+     * 批量删除用户账号管理
+     *
+     * @param userIds 需要删除的用户账号管理主键集合
+     * @return 结果
+     */
+    public int deleteLocalAuthByUserIds(String userIds);
+
+    /**
+     * 删除用户账号管理信息
+     *
+     * @param userId 用户账号管理主键
+     * @return 结果
+     */
+    public int deleteLocalAuthByUserId(Long userId);
 }

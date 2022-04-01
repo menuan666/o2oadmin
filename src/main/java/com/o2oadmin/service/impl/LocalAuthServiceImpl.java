@@ -6,6 +6,7 @@ import com.o2oadmin.service.LocalAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 @Service
 public class LocalAuthServiceImpl implements LocalAuthService {
@@ -46,5 +47,31 @@ public class LocalAuthServiceImpl implements LocalAuthService {
     public int updateLocalAuth(LocalAuth LocalAuth)
     {
         return localAuthDao.updateLocalAuth(LocalAuth);
+    }
+
+    /**
+     * 批量删除用户账号管理
+     *
+     * @param userIds 需要删除的用户账号管理主键
+     * @return 结果
+     */
+    @Override
+    public int deleteLocalAuthByUserIds(String userIds)
+    {
+        String[] str = userIds.split(",");
+        System.out.println(Arrays.toString(str));
+        return localAuthDao.deleteLocalAuthByUserIds(str);
+    }
+
+    /**
+     * 删除用户账号管理信息
+     *
+     * @param userId 用户账号主键
+     * @return 结果
+     */
+    @Override
+    public int deleteLocalAuthByUserId(Long userId)
+    {
+        return localAuthDao.deleteLocalAuthByUserId(userId);
     }
 }

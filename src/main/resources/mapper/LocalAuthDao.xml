@@ -41,4 +41,14 @@
         </trim>
         where local_auth_id = #{localAuthId}
     </update>
+    <delete id="deleteLocalAuthByUserId" parameterType="Long">
+        delete from tb_local_auth where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteLocalAuthByUserIds" parameterType="String">
+        delete from tb_local_auth where user_id in
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
 </mapper>

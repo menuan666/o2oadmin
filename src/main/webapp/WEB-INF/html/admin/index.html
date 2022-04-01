@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../../../statics/layui/css/layui.css">
-
 </head>
-
 <body>
 <ul class="layui-nav" lay-filter="">
     <li class="layui-nav-item"><a id="indexa">首页</a></li>
@@ -49,7 +47,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <div id="areadiv" >
 <iframe id="manageiframe"
@@ -57,13 +54,11 @@
 </div>
 <script type="text/javascript" src="../../../statics/layui/layui.js"></script>
 <script>
-
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use(['element','jquery'], function(){
         var element = layui.element;
         var $ = layui.jquery;
         //…
-
         $('#indexa').click(function (){
             $('#index').show();
             $('#manageiframe').hide();
@@ -82,7 +77,6 @@
             //$("#areadiv").removeAttr("hidden");
             $('#manageiframe').attr("src", "/manage/localauth");
         })
-
     });
 </script>
 </body>
