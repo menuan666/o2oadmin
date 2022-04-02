@@ -79,8 +79,8 @@
     <!-- 头部工具栏 -->
     <script type="text/html" id="personinfoToolbar">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm " lay-event="add"><i
-                    class="layui-icon layui-icon-add-circle"></i>添加账单
+            <button class="layui-btn layui-btn-sm layui-btn-disabled" lay-event="add"><i
+                    class="layui-icon layui-icon-add-circle"></i>添加信息
             </button>
             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchDelete"><i
                     class="layui-icon layui-icon-delete"></i>批量删除
@@ -102,26 +102,59 @@
     <form id="dataFrm" method="post" class="layui-form layui-form-pane"
           lay-filter="dataFrm">
         <!-- 隐藏域，保存当前账单的ID -->
-        <input type="hidden" name="localAuthId">
+        <input type="hidden" name="userId">
 <!--        <input type="hidden" name="userId">-->
         <div class="layui-form-item">
-            <label class="layui-form-label">用户登录名</label>
+            <label class="layui-form-label">用户昵称</label>
             <div class="layui-input-block">
-                <input type="text" name="username"
-                       autocomplete="off"
-                       class="layui-input" disabled>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户密码</label>
-            <div class="layui-input-block">
-                <input type="password" name="password" placeholder="请输入用户密码"
+                <input type="text" name="name"
                        lay-verify="required"
-                       lay-reqText="请输入用户密码" autocomplete="off"
+                       autocomplete="off"
                        class="layui-input">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户头像地址</label>
+            <div class="layui-input-inline">
+                <input type="text" name="profileImg"
+                       lay-verify="required"
+                        autocomplete="off"
+                       class="layui-input" disabled>
 
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-sm"
+                        style="margin-top: -5px" lay-filter="doupdateimg">设为默认</button></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" name="email"
+                       autocomplete="off"
+                       lay-verify="required|email"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户性别</label>
+            <div class="layui-input-block">
+                <select name="gender" class="layui-input">
+                    <option value="">请选择用户性别</option>
+                    <option value="0">男</option>
+                    <option value="1">女</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户状态</label>
+            <div class="layui-input-block">
+                <select name="enableStatus" class="layui-input">
+                    <option value="">请选择用户状态</option>
+                    <option value="0">正常</option>
+                    <option value="1">封禁</option>
+                </select>
+            </div>
+        </div>
         <div class="layui-form-item" style="text-align: center;">
             <button type="button" class="layui-btn" lay-submit lay-filter="doSubmit">提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置
@@ -139,7 +172,7 @@
         var $ = layui.jquery;
         var table = layui.table;
         var url = '';
-
+///upload/personinfo/touxiang.png
         //渲染表格组件
         const tableIns = table.render({
             elem: "#personinfoTable",//绑定表格元素，推荐使用ID选择器
@@ -163,7 +196,7 @@
                             return " ";
                         }
                     } },
-                , {field: 'balance', title: '余额', align: "center",}
+                 {field: 'balance', title: '余额', align: "center",}
                 , {field: 'enableStatus', title: '用户状态', align: "center",templet: function(d){
                         if (d.enableStatus=="1") {  // 自定义内容
                             return "封禁";
@@ -173,7 +206,7 @@
                             return " ";
                         }
                     } },
-                , {field: 'createTime', title: '修改时间', align: "center"}
+                 {field: 'createTime', title: '修改时间', align: "center"}
                 , {field: 'lastEditTime', title: '创建时间', align: "center"}
                 , {title: "操作", toolbar: "#personinfoRowBar", align: "center", width: 130}
             ]]
@@ -195,18 +228,18 @@
         function openUpdateWindow(data) {
             mainIndex = layer.open({
                 type: 1,//弹出层类型
-                title: "修改账单",
-                area: ['300px', '220px'],
-                content: $("#UpdateLocalAuthDiv"),//引用的窗口代码
+                title: "修改信息",
+                area: ['500px', '380px'],
+                content: $("#UpdatePersonInfoDiv"),//引用的窗口代码
                 success: function () {
                     //表单数据回显
                     form.val("dataFrm", data);
                     //修改请求
-                    url = "/localauth/updatelocalauth";
+                    url = "/personinfo/updatepersoninfo";
                 }
             });
         }
-        table.on("tool(localauthTable)", function (obj) {
+        table.on("tool(personinfoTable)", function (obj) {
             switch (obj.event) {
                 //编辑
                 case 'edit':

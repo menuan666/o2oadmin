@@ -63,18 +63,23 @@ public class PersonInfoController {
 
     @RequestMapping("/updatepersoninfo")
     @ResponseBody
-    public Map<String,Object> updatearea(LocalAuth localAuth){
-        System.out.println(localAuth);
+    public Map<String,Object> updatearea(PersonInfo personInfo){
+        System.out.println(personInfo);
         Map<String,Object> map = new HashMap<String,Object>();
-        localAuth.setLastEditTime(new Date());
-        System.out.println(localAuth);
-        localAuth.setPassword(MD5.getMd5(localAuth.getPassword()));
-        if(localAuthService.updateLocalAuth(localAuth)>0){
+        personInfo.setLastEditTime(new Date());
+        System.out.println(personInfo);
+        //personInfo.setPassword(MD5.getMd5(localAuth.getPassword()));
+        try {
+        if(personInfoService.updatePersonInfo(personInfo)>0){
             map.put("success",true);
             map.put("message","修改成功");
         }else{
             map.put("success",false);
             map.put("message","修改失败");
+        }
+        }catch(Exception e){
+            map.put("success",false);
+            map.put("message","请检查数据库");
         }
         return map;
     }

@@ -44,10 +44,10 @@
             <if test="profileImg != null">profile_img = #{profileImg},</if>
             <if test="email != null">email = #{email},</if>
             <if test="gender != null">gender = #{gender},</if>
-            <if test="balance != null">balance = #{balance},</if>
+<!--            <if test="balance != null">balance = #{balance},</if>-->
             <if test="enableStatus != null">enable_status = #{enableStatus},</if>
 <!--            <if test="userType != null">user_type = #{userType},</if>-->
-            <if test="createTime != null">create_time = #{createTime},</if>
+<!--            <if test="createTime != null">create_time = #{createTime},</if>-->
             <if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
         </trim>
         where user_id = #{userId}
