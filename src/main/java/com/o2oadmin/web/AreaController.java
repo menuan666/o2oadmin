@@ -28,7 +28,7 @@ public class AreaController {
         //System.out.println("page:"+page+",limit:"+limit);
         //设置分页信息(当前页码,每页显示数量)
         PageHelper.startPage(page, limit);
-        //调用分页查询账单列表的方法
+        //调用分页查询列表的方法
         List<Area> areaList = null;
         if ("".equals(areaName)||areaName == null){
             areaList = areaService.selectAreaList(new Area());

@@ -32,7 +32,7 @@ public class LocalAuthController {
         System.out.println("page:"+page+",limit:"+limit);
         //设置分页信息(当前页码,每页显示数量)
         PageHelper.startPage(page, limit);
-        //调用分页查询账单列表的方法
+        //调用分页查询列表的方法
         boolean isusername = "".equals(username)||username == null;
         boolean isuserid = userId==null;
         LocalAuth lo = new LocalAuth();

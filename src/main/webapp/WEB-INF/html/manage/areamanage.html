@@ -57,11 +57,11 @@
 <!-- 数据表格结束 -->
 
 
-<!-- 添加和修改账单的弹出层开始 -->
+<!-- 添加和修改的弹出层开始 -->
 <div id="addOrUpdateAreaDiv" style="display: none;margin: 10px">
     <form id="dataFrm" method="post" class="layui-form layui-form-pane"
           lay-filter="dataFrm">
-        <!-- 隐藏域，保存当前账单的ID -->
+        <!-- 隐藏域，保存当前的ID -->
         <input type="hidden" name="areaId">
         <div class="layui-form-item">
             <label class="layui-form-label">区域名称</label>
@@ -89,7 +89,7 @@
         </div>
     </form>
 </div>
-<!-- 添加和修改账单的弹出层结束-->
+<!-- 添加和修改的弹出层结束-->
 
 
 <!--<script src="${pageContext.request.contextPath}/statics/layui/layui.js"></script>-->
@@ -117,6 +117,7 @@
                 , {title: "操作", toolbar: "#areaRowBar", align: "center"}
             ]]
         });
+        //条件搜索
         form.on("submit(doSearch)",function (data) {
             console.log(data.field);
             table.reload('areaTable',{
@@ -130,6 +131,7 @@
             return false;
         });
         var mainIndex ;
+        //打开添加工具栏
         function openAddWindow() {
             mainIndex = layer.open({
                 type: 1,//弹出层类型
@@ -143,7 +145,7 @@
                 }
             });
         }
-
+        //批量删除函数
         function batchDelete() {
             //获取表格对象
             var checkStatus = table.checkStatus('areaTable'); //areaTable 即为基础参数 id 对应的值
@@ -178,6 +180,7 @@
             }
 
         }
+        //头部工具栏操作
         table.on("toolbar(areaTable)",function (obj) {
             switch (obj.event) {
                 //添加
@@ -191,11 +194,11 @@
 
             }
         });
-
+        //打开修改窗口
         function openUpdateWindow(data) {
             mainIndex =layer.open({
                 type:1,//弹出层类型
-                title:"修改账单",
+                title:"修改信息",
                 area: ['300px', '220px'],
                 content:$("#addOrUpdateAreaDiv"),//引用的窗口代码
                 success:function () {
@@ -206,7 +209,7 @@
                 }
             });
         }
-
+        //单个删除函数
         function deleteById(data) {
             //提示用户确认是否删除
             layer.confirm("确定要删除区域[<font color='red'>"+data.areaName+"</font>]吗？",{icon:3,title:"提示"},function (index) {
@@ -224,7 +227,7 @@
             layer.close(index);
         });
         }
-
+        //行工具栏操作
         table.on("tool(areaTable)",function (obj) {
             switch (obj.event) {
                 //编辑
@@ -236,6 +239,7 @@
                     break;
             }
         });
+        //修改或添加
         form.on("submit(doSubmit)",function (data) {
             $.post(url,data.field,function(result){
                 console.log(data.field)

@@ -29,6 +29,7 @@
             <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
             <if test="enableStatus != null "> and enable_status = #{enableStatus}</if>
         </where>
+        ORDER BY user_id desc
     </select>
 
     <select id="selectPersonInfoByUserId" parameterType="Long" resultMap="PersonInfoResult">

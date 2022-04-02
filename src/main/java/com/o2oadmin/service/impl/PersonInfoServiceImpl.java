@@ -2,9 +2,11 @@ package com.o2oadmin.service.impl;
 
 import com.o2oadmin.dao.PersonInfoDao;
 import com.o2oadmin.entity.PersonInfo;
+import com.o2oadmin.service.LocalAuthService;
 import com.o2oadmin.service.PersonInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +15,8 @@ import java.util.List;
 public class PersonInfoServiceImpl implements PersonInfoService {
     @Autowired
     private PersonInfoDao personInfoDao;
-
+    @Autowired
+    private LocalAuthService localAuthService;
     /**
      * 查询用户信息管理
      *
@@ -58,11 +61,20 @@ public class PersonInfoServiceImpl implements PersonInfoService {
      * @return 结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deletePersonInfoByUserIds(String userIds)
     {
         String[] str = userIds.split(",");
         System.out.println(Arrays.toString(str));
-        return personInfoDao.deletePersonInfoByUserIds(str);
+        int i = 0;
+        try{
+            if(localAuthService.deleteLocalAuthByUserIds(userIds)>0){
+                i = personInfoDao.deletePersonInfoByUserIds(str);
+            }
+        }catch(Exception e) {
+            throw new RuntimeException();
+        }
+        return i;
     }
 
     /**
@@ -72,9 +84,16 @@ public class PersonInfoServiceImpl implements PersonInfoService {
      * @return 结果
      */
     @Override
-    public int deletePersonInfoByUserId(Long userId)
-    {
-        return personInfoDao.deletePersonInfoByUserId(userId);
+    @Transactional(rollbackFor = Exception.class)
+    public int deletePersonInfoByUserId(Long userId) {
+        int i = 0;
+        try{
+            if(localAuthService.deleteLocalAuthByUserId(userId)>0){
+                i = personInfoDao.deletePersonInfoByUserId(userId);
+            }
+        }catch(Exception e) {
+            throw new RuntimeException();
+        }
+        return i;
     }
-
 }

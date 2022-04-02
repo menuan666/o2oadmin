@@ -70,11 +70,11 @@
 <!-- 数据表格结束 -->
 
 
-<!-- 添加和修改账单的弹出层开始 -->
+<!-- 添加和修改的弹出层开始 -->
 <div id="UpdateLocalAuthDiv" style="display: none;margin: 10px">
     <form id="dataFrm" method="post" class="layui-form layui-form-pane"
           lay-filter="dataFrm">
-        <!-- 隐藏域，保存当前账单的ID -->
+        <!-- 隐藏域，保存当前的ID -->
         <input type="hidden" name="localAuthId">
 <!--        <input type="hidden" name="userId">-->
         <div class="layui-form-item">
@@ -102,7 +102,7 @@
         </div>
     </form>
 </div>
-<!-- 添加和修改账单的弹出层结束-->
+<!-- 添加和修改的弹出层结束-->
 
 
 <!--<script src="${pageContext.request.contextPath}/statics/layui/layui.js"></script>-->
@@ -150,7 +150,7 @@
         function openUpdateWindow(data) {
             mainIndex = layer.open({
                 type: 1,//弹出层类型
-                title: "修改账单",
+                title: "修改信息",
                 area: ['300px', '220px'],
                 content: $("#UpdateLocalAuthDiv"),//引用的窗口代码
                 success: function () {
