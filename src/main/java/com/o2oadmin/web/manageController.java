@@ -23,4 +23,9 @@ public class manageController {
         //首页
         return "/manage/personinfomanage";
     }
+    @RequestMapping(value = "/runner", method = RequestMethod.GET)
+    public String runner() {
+        //首页
+        return "/manage/runnermanage";
+    }
 }

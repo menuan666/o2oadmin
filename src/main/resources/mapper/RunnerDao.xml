@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o2oadmin.dao.RunnerDao">
+
+    <resultMap type="Runner" id="RunnerResult">
+        <result property="runnerId"    column="runner_id"    />
+        <result property="runnerName"    column="runner_name"    />
+        <result property="runnerDesc"    column="runner_desc"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="price"    column="price"    />
+        <result property="status"    column="status"    />
+        <result property="userId"    column="user_id"    />
+        <result property="getUserId"    column="get_user_id"    />
+    </resultMap>
+
+    <sql id="selectRunnerVo">
+        select runner_id, runner_name, runner_desc, create_time, price, status, user_id, get_user_id ,phone from tb_runner
+    </sql>
+
+    <select id="selectRunnerList" parameterType="Runner" resultMap="RunnerResult">
+        <include refid="selectRunnerVo"/>
+        <where>
+            <if test="runnerName != null  and runnerName != ''"> and runner_name like concat('%', #{runnerName}, '%')</if>
+            <if test="status != null "> and `status` = #{status}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="getUserId != null "> and get_user_id = #{getUserId}</if>
+        </where>
+        order by runner_id desc
+    </select>
+
+    <select id="selectRunnerByRunnerId" parameterType="Long" resultMap="RunnerResult">
+        <include refid="selectRunnerVo"/>
+        where runner_id = #{runnerId}
+    </select>
+
+    <insert id="insertRunner" parameterType="Runner" useGeneratedKeys="true" keyProperty="runnerId">
+        insert into tb_runner
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="runnerName != null">runner_name,</if>
+            <if test="runnerDesc != null">runner_desc,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="price != null">price,</if>
+            <if test="status != null">status,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="getUserId != null">get_user_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="runnerName != null">#{runnerName},</if>
+            <if test="runnerDesc != null">#{runnerDesc},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="price != null">#{price},</if>
+            <if test="status != null">#{status},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="getUserId != null">#{getUserId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateRunner" parameterType="Runner">
+        update tb_runner
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="runnerName != null">runner_name = #{runnerName},</if>
+            <if test="runnerDesc != null">runner_desc = #{runnerDesc},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="getUserId != null">get_user_id = #{getUserId},</if>
+        </trim>
+        where runner_id = #{runnerId}
+    </update>
+
+    <delete id="deleteRunnerByRunnerId" parameterType="Long">
+        delete from tb_runner where runner_id = #{runnerId}
+    </delete>
+
+    <delete id="deleteRunnerByRunnerIds" parameterType="String">
+        delete from tb_runner where runner_id in
+        <foreach item="runnerId" collection="array" open="(" separator="," close=")">
+            #{runnerId}
+        </foreach>
+    </delete>
+
+</mapper>

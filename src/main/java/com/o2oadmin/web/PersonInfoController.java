@@ -52,7 +52,7 @@ public class PersonInfoController {
         if(!isenableStatus){
             personInfo.setEnableStatus(enableStatus);
         }
-        List<LocalAuth> localauthList = null;
+        //List<LocalAuth> localauthList = null;
         List<PersonInfo> personInfos = personInfoService.selectPersonInfoList(personInfo);
         //创建分页对象
         PageInfo<PersonInfo> pageInfo = new PageInfo<PersonInfo>(personInfos);
