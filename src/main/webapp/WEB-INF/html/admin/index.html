@@ -41,9 +41,13 @@
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
             <dd><a id="localauth">用户账密管理</a></dd>
             <dd><a id="personinfo">用户信息管理</a></dd>
-
-            <!--            <dd><a href="">后台模版</a></dd>-->
-            <!--            <dd><a href="">电商平台</a></dd>-->
+        </dl>
+    </li>
+    <li class="layui-nav-item">
+        <a href="javascript:">订单管理</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a id="runner">跑腿订单管理</a></dd>
+            <dd><a id="order">用户订单管理</a></dd>
         </dl>
     </li>
 </ul>
@@ -109,6 +113,12 @@
             $('#manageiframe').show();
             //$("#areadiv").removeAttr("hidden");
             $('#manageiframe').attr("src", "/manage/personinfo");
+        })
+        $('#runner').click(function (){
+            $('#index').hide();
+            $('#manageiframe').show();
+            //$("#areadiv").removeAttr("hidden");
+            $('#manageiframe').attr("src", "/manage/runner");
         })
     });
 </script>
