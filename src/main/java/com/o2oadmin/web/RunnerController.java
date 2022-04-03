@@ -63,29 +63,23 @@ public class RunnerController {
         DataGridViewResult data = new DataGridViewResult(pageInfo.getTotal(), pageInfo.getList());
         return data;
     }
-    @RequestMapping("/addarea")
+
+    @RequestMapping("/updaterunner")
     @ResponseBody
-    public Map<String,Object> addarea(Area area){
+    public Map<String,Object> updaterunner(Runner runner){
+        System.out.println(runner);
         Map<String,Object> map = new HashMap<String,Object>();
-        area.setCreateTime(new Date());
-        if(areaService.insertArea(area)>0){
-            map.put("success",true);
-            map.put("message","添加成功");
-        }else{
+        //runner.setLastEditTime(new Date());
+        //System.out.println(area);
+        Integer stat = runnerService.selectRunnerByRunnerId(runner.getRunnerId()).getStatus();
+        if (stat != runner.getStatus()){
+        if (runner.getGetUserId()==null){
             map.put("success",false);
-            map.put("message","添加失败");
-        }
-        return map;
-    }
-    @RequestMapping("/updatearea")
-    @ResponseBody
-    public Map<String,Object> updatearea(Area area){
-        System.out.println(area);
-        Map<String,Object> map = new HashMap<String,Object>();
-        area.setLastEditTime(new Date());
-        System.out.println(area);
+            map.put("message","修改失败，请检查是否有人接单");
+            return map;
+        }}
         try {
-            if(areaService.updateArea(area)>0){
+            if(runnerService.updateRunner(runner)>0){
                 map.put("success",true);
                 map.put("message","修改成功");
             }else{

@@ -62,11 +62,11 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="runnerName != null">runner_name = #{runnerName},</if>
             <if test="runnerDesc != null">runner_desc = #{runnerDesc},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
-            <if test="price != null">price = #{price},</if>
+<!--            <if test="createTime != null">create_time = #{createTime},</if>-->
+<!--            <if test="price != null">price = #{price},</if>-->
             <if test="status != null">status = #{status},</if>
-            <if test="userId != null">user_id = #{userId},</if>
-            <if test="getUserId != null">get_user_id = #{getUserId},</if>
+<!--            <if test="userId != null">user_id = #{userId},</if>-->
+<!--            <if test="getUserId != null">get_user_id = #{getUserId},</if>-->
         </trim>
         where runner_id = #{runnerId}
     </update>

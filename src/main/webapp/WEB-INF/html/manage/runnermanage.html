@@ -7,13 +7,6 @@
     <script src="../../../statics/layui/layui.js"></script>
 </head>
 <body>
-<style>
-    .layui-table-cell {
-        text-align: center;
-        height: auto;
-        white-space: normal;
-        line-height: 70px;
-    }
 </style>
 <!-- 标题 -->
 <h1 style="text-align: center">跑腿订单列表</h1>
@@ -70,7 +63,7 @@
 <!-- 查询条件结束 -->
 
 <!-- 数据表格开始 -->
-<div style="width: 80%;margin-left: 100px">
+<div style="width: 80%;margin-left: 150px">
     <!-- 表格 -->
     <table class="layui-hide" id="runnerTable" lay-filter="runnerTable"></table>
 
@@ -100,54 +93,36 @@
     <form id="dataFrm" method="post" class="layui-form layui-form-pane"
           lay-filter="dataFrm">
         <!-- 隐藏域，保存当前的ID -->
-        <input type="hidden" name="userId">
+        <input type="hidden" name="runnerId">
+        <input type="hidden" name="getUserId">
 <!--        <input type="hidden" name="userId">-->
         <div class="layui-form-item">
-            <label class="layui-form-label">用户昵称</label>
+            <label class="layui-form-label">跑腿名称</label>
             <div class="layui-input-block">
-                <input type="text" name="name"
-                       autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户头像</label>
-            <div class="layui-input-inline">
-                <input type="text" name="profileImg" id="profileImg"
+                <input type="text" name="runnerName"
                        lay-verify="required"
-                        autocomplete="off"
-                       class="layui-input" disabled>
-            </div>
-            <div class="layui-form-mid layui-word-aux">
-                <button type="button" class="layui-btn layui-btn-normal layui-btn-sm"
-                        style="margin-top: -5px" onclick="doupdateimg()">设为默认</button></div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户邮箱</label>
-            <div class="layui-input-block">
-                <input type="text" name="email"
                        autocomplete="off"
-                       lay-verify="email"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">跑腿描述</label>
+            <div class="layui-input-block">
+                <input type="text" name="runnerDesc"
+                       autocomplete="off"
+                       lay-verify="required"
                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">用户性别</label>
+            <label class="layui-form-label">跑腿状态</label>
             <div class="layui-input-block">
-                <select name="gender" class="layui-input">
-                    <option value="">请选择用户性别</option>
-                    <option value="0">男</option>
-                    <option value="1">女</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户状态</label>
-            <div class="layui-input-block">
-                <select name="enableStatus" class="layui-input">
-                    <option value="">请选择用户状态</option>
-                    <option value="0">正常</option>
-                    <option value="1">封禁</option>
+                <select name="status" class="layui-input">
+                    <option value="">请选择跑腿状态</option>
+                    <option value="0">未接单</option>
+                    <option value="1">进行中</option>
+                    <option value="2">已完成</option>
                 </select>
             </div>
         </div>
@@ -227,12 +202,12 @@
                 type: 1,//弹出层类型
                 title: "修改信息",
                 area: ['500px', '380px'],
-                content: $("#UpdatePersonInfoDiv"),//引用的窗口代码
+                content: $("#UpdaterunnerDiv"),//引用的窗口代码
                 success: function () {
                     //表单数据回显
                     form.val("dataFrm", data);
                     //修改请求
-                    url = "/personinfo/updatepersoninfo";
+                    url = "/runner/updaterunner";
                 }
             });
         }
@@ -279,14 +254,9 @@
             }else{
                 layer.msg("请选择要删除的数据");
             }
-
         }
         table.on("toolbar(runnerTable)",function (obj) {
             switch (obj.event) {
-                //添加
-                case 'add':
-                    openAddWindow();
-                    break;
                 //批量删除
                 case 'batchDelete':
                     batchDelete();

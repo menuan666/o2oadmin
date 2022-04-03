@@ -23,17 +23,13 @@
         box-shadow: 0 4px 16px rgba(48, 55, 66, 0.15);
     }
 </style>
-<body>
-<ul class="layui-nav" lay-filter="">
-    <li class="layui-nav-item"><a id="indexa">首页</a></li>
-<!--    <li class="layui-nav-item layui-this"><a href="">产品</a></li>-->
-<!--    <li class="layui-nav-item"><a href="">大数据</a></li>-->
+
+<ul class="layui-nav" lay-filter="test">
+    <li class="layui-nav-item layui-nav-itemed"><a id="indexa">首页</a></li>
     <li class="layui-nav-item">
         <a href="javascript:">数据管理</a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
             <dd><a id="area">区域信息管理</a></dd>
-<!--            <dd><a href="">后台模版</a></dd>-->
-<!--            <dd><a href="">电商平台</a></dd>-->
         </dl>
     </li>
     <li class="layui-nav-item">
@@ -79,7 +75,7 @@
         </div>
     </div>
 </div>
-<div id="areadiv" >
+<div id="areadiv">
 <iframe id="manageiframe"
         style="width: 100%;height: 1000px;border: medium none;" src=""></iframe>
 </div>
