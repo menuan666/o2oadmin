@@ -1,5 +1,6 @@
 package com.o2oadmin.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -22,8 +23,10 @@ public class Product {
     //权重
     private Integer priority;
     //创建时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
     //最后更新时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastEditTime;
     //-1.不可用，0.下架 1.在前端展示系统展示
     private Integer enableStatus;

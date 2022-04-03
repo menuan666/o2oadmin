@@ -28,4 +28,9 @@ public class manageController {
         //首页
         return "/manage/runnermanage";
     }
+    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    public String order() {
+        //首页
+        return "/manage/ordermanage";
+    }
 }
