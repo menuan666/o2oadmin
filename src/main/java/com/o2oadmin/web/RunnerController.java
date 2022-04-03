@@ -92,13 +92,13 @@ public class RunnerController {
         }
         return map;
     }
-    @RequestMapping("/deletearea")
+    @RequestMapping("/deleterunner")
     @ResponseBody
-    public Map<String,Object> deletearea(Long areaId){
+    public Map<String,Object> deleterunner(Long runnerId){
         //System.out.println(areaId);
         Map<String,Object> map = new HashMap<String,Object>();
         try{
-            if(areaService.deleteAreaByAreaId(areaId)>0){
+            if(runnerService.deleteRunnerByRunnerId(runnerId)>0){
                 map.put("success",true);
                 map.put("message","删除成功");
             }else{
@@ -111,14 +111,14 @@ public class RunnerController {
         }
         return map;
     }
-    @RequestMapping("/batchdeletearea")
+    @RequestMapping("/batchdeleterunner")
     @ResponseBody
-    public Map<String,Object> batchdeletearea(String ids){
+    public Map<String,Object> batchdeleterunner(String ids){
         //ids = "( "+ids+" )";
         System.out.println(ids);
         Map<String,Object> map = new HashMap<String,Object>();
         try {
-            if(areaService.deleteAreaByAreaIds(ids)>0){
+            if(runnerService.deleteRunnerByRunnerIds(ids)>0){
                 map.put("success",true);
                 map.put("message","批量删除成功");
             }else{

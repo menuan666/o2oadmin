@@ -201,7 +201,7 @@
             mainIndex = layer.open({
                 type: 1,//弹出层类型
                 title: "修改信息",
-                area: ['500px', '380px'],
+                area: ['400px', '380px'],
                 content: $("#UpdaterunnerDiv"),//引用的窗口代码
                 success: function () {
                     //表单数据回显
@@ -224,7 +224,7 @@
         });
         function batchDelete() {
             //获取表格对象
-            var checkStatus = table.checkStatus('personinfoTable'); //areaTable 即为基础参数 id 对应的值
+            var checkStatus = table.checkStatus('runnerTable'); //areaTable 即为基础参数 id 对应的值
             //判断是否有选中行
             if(checkStatus.data.length>0){
                 //定义数组，保存选中行的ID
@@ -232,14 +232,14 @@
                 //循环遍历获取选中行(目的是获取选中的每一行的ID值)
                 for (let i = 0; i < checkStatus.data.length; i++) {
                     //将选中的ID值添加到数组的末尾
-                    idArr.push(checkStatus.data[i].userId);
+                    idArr.push(checkStatus.data[i].runnerId);
                 }
                 //将数组转成字符串
                 var ids = idArr.join(",");
                 //提示用户是否删除
                 layer.confirm("确定要删除这<font color='red'>"+checkStatus.data.length+"</font>条数据吗？",{icon:3,title:"提示"},function (index) {
                     //发送ajax请求
-                    $.post("/personinfo/batchdeletepersoninfo",{"ids":ids},function(result){
+                    $.post("/runner/batchdeleterunner",{"ids":ids},function(result){
                         if(result.success){
                             layer.alert(result.message,{icon:1});
                             //刷新数据表格
@@ -266,9 +266,9 @@
         });
         function deleteById(data) {
             //提示用户确认是否删除
-            layer.confirm("确定要删除用户[<font color='red'>"+data.name+"</font>]吗？",{icon:3,title:"提示"},function (index) {
+            layer.confirm("确定要删除订单[<font color='red'>"+data.runnerName+"</font>]吗？",{icon:3,title:"提示"},function (index) {
                 //发送ajax请求
-                $.post("/personinfo/deletepersoninfo",{"userId":data.userId},function(result){
+                $.post("/runner/deleterunner",{"runnerId":data.runnerId},function(result){
                     if(result.success){
                         layer.alert(result.message,{icon:1});
                         //刷新数据表格
