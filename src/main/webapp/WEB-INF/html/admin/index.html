@@ -46,6 +46,13 @@
             <dd><a id="order">用户订单管理</a></dd>
         </dl>
     </li>
+    <li class="layui-nav-item">
+        <a href="javascript:">商品管理</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a id="productimg">商品图片管理</a></dd>
+            <dd><a id="orde1r">用户订单管理</a></dd>
+        </dl>
+    </li>
 </ul>
 <div id="index" style="margin-top: 40px;margin-left: 50px;margin-right: 50px" >
     <div class="layui-row layui-col-space15">
@@ -121,6 +128,12 @@
             $('#manageiframe').show();
             //$("#areadiv").removeAttr("hidden");
             $('#manageiframe').attr("src", "/manage/order");
+        })
+        $('#productimg').click(function (){
+            $('#index').hide();
+            $('#manageiframe').show();
+            //$("#areadiv").removeAttr("hidden");
+            $('#manageiframe').attr("src", "/manage/productimg");
         })
     });
 </script>

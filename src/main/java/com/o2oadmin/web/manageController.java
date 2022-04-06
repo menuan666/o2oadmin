@@ -33,4 +33,9 @@ public class manageController {
         //首页
         return "/manage/ordermanage";
     }
+    @RequestMapping(value = "/productimg", method = RequestMethod.GET)
+    public String productimg() {
+        //首页
+        return "/manage/productimgmanage";
+    }
 }
