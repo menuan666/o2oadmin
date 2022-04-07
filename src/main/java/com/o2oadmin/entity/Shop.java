@@ -10,7 +10,6 @@ import java.util.Date;
  * 店铺
  */
 @Data
-
 public class Shop {
     //ID
     private Long shopId;
@@ -32,7 +31,7 @@ public class Shop {
     //最后修改时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastEditTime;
-    //-1.不可用 0.审核中 1.可用
+    //0.审核中 1.可用
     private Integer enableStatus;
     //超级管理员给店家的提醒
     private String advice;

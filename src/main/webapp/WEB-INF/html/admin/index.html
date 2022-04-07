@@ -47,6 +47,13 @@
         </dl>
     </li>
     <li class="layui-nav-item">
+        <a href="javascript:">店铺管理</a>
+        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a id="shopmanage">店铺管理</a></dd>
+            <dd><a id="shopmanage1">店铺类别管理</a></dd>
+        </dl>
+    </li>
+    <li class="layui-nav-item">
         <a href="javascript:">商品管理</a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
             <dd><a id="productcategory">商品类别管理</a></dd>
@@ -148,6 +155,12 @@
             $('#manageiframe').show();
             //$("#areadiv").removeAttr("hidden");
             $('#manageiframe').attr("src", "/manage/productcategory");
+        })
+        $('#shopmanage').click(function (){
+            $('#index').hide();
+            $('#manageiframe').show();
+            //$("#areadiv").removeAttr("hidden");
+            $('#manageiframe').attr("src", "/manage/shop");
         })
     });
 </script>

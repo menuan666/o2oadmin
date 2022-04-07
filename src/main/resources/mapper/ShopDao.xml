@@ -24,7 +24,6 @@
     <sql id="selectShopVo">
         select shop_id, owner_id, area_id, shop_category_id, shop_name, shop_desc, shop_addr, phone, shop_img, priority, create_time, last_edit_time, enable_status, advice from tb_shop
     </sql>
-
     <select id="selectShopList" parameterType="Shop" resultMap="ShopResult">
         <include refid="selectShopVo"/>
         <where>
@@ -35,11 +34,13 @@
             <if test="shopDesc != null  and shopDesc != ''"> and shop_desc like concat('%', #{shopDesc}, '%')</if>
             <if test="enableStatus != null "> and enable_status = #{enableStatus}</if>
         </where>
+        order by shop_id desc
     </select>
 
     <select id="selectShopByShopId" parameterType="Long" resultMap="ShopResult">
         <include refid="selectShopVo"/>
         where shop_id = #{shopId}
+
     </select>
 
     <insert id="insertShop" parameterType="Shop" useGeneratedKeys="true" keyProperty="shopId">
