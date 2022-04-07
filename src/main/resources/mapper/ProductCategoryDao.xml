@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o2oadmin.dao.ProductCategoryDao">
+
+    <resultMap type="ProductCategory" id="ProductCategoryResult">
+        <result property="productCategoryId"    column="product_category_id"    />
+        <result property="productCategoryName"    column="product_category_name"    />
+        <result property="priority"    column="priority"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="shopId"    column="shop_id"    />
+    </resultMap>
+
+    <sql id="selectProductCategoryVo">
+        select product_category_id, product_category_name, priority, create_time, shop_id from tb_product_category
+    </sql>
+
+    <select id="selectProductCategoryList" parameterType="ProductCategory" resultMap="ProductCategoryResult">
+        <include refid="selectProductCategoryVo"/>
+        <where>
+            <if test="productCategoryName != null  and productCategoryName != ''"> and product_category_name like concat('%', #{productCategoryName}, '%')</if>
+            <if test="shopId != null "> and shop_id = #{shopId}</if>
+        </where>
+        order by product_category_id desc
+    </select>
+
+    <select id="selectProductCategoryByProductCategoryId" parameterType="Long" resultMap="ProductCategoryResult">
+        <include refid="selectProductCategoryVo"/>
+        where product_category_id = #{productCategoryId}
+    </select>
+
+
+    <update id="updateProductCategory" parameterType="ProductCategory">
+        update tb_product_category
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productCategoryName != null and productCategoryName != ''">product_category_name = #{productCategoryName},</if>
+            <if test="priority != null">priority = #{priority},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="shopId != null">shop_id = #{shopId},</if>
+        </trim>
+        where product_category_id = #{productCategoryId}
+    </update>
+
+    <delete id="deleteProductCategoryByProductCategoryId" parameterType="Long">
+        delete from tb_product_category where product_category_id = #{productCategoryId}
+    </delete>
+
+    <delete id="deleteProductCategoryByProductCategoryIds" parameterType="String">
+        delete from tb_product_category where product_category_id in
+        <foreach item="productCategoryId" collection="array" open="(" separator="," close=")">
+            #{productCategoryId}
+        </foreach>
+    </delete>
+
+</mapper>
