@@ -38,4 +38,9 @@ public class manageController {
         //首页
         return "/manage/productimgmanage";
     }
+    @RequestMapping(value = "/product", method = RequestMethod.GET)
+    public String product() {
+        //首页
+        return "/manage/productmanage";
+    }
 }

@@ -39,6 +39,12 @@ public interface ProductImgDao {
     public int deleteProductImgByProductImgId(Long productImgId);
 
     /**
+     * 删除商品图片信息管理通过商品ID
+     * @param productId
+     * @return
+     */
+    public int deleteProductImgByProductId(Long productId);
+    /**
      * 批量删除商品图片信息管理
      *
      * @param productImgIds 需要删除的数据主键集合

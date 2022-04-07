@@ -31,10 +31,10 @@ public class Product {
     //-1.不可用，0.下架 1.在前端展示系统展示
     private Integer enableStatus;
     //商品详情图片列表
-    private List<ProductImg> productImgList;
+    private List<Long> productImgId;
     //商品类别
-    private ProductCategory productCategory;
+    private Long productCategoryId;
     //店铺
-    private Shop shop;
+    private Long shopId;
 
 }

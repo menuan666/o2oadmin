@@ -37,7 +37,12 @@ public interface ProductImgService {
      * @return 结果
      */
     public int deleteProductImgByProductImgIds(String productImgIds);
-
+    /**
+     * 删除商品图片信息管理通过商品ID
+     * @param productId
+     * @return
+     */
+    public int deleteProductImgByProductId(Long productId);
     /**
      * 删除商品图片信息管理信息
      *

@@ -64,7 +64,15 @@ public class ProductImgServiceImpl implements ProductImgService {
         System.out.println(Arrays.toString(str));
         return productImgDao.deleteProductImgByProductImgIds(str);
     }
-
+    /**
+     * 删除商品图片信息管理通过商品ID
+     * @param productId
+     * @return
+     */
+    @Override
+    public int deleteProductImgByProductId(Long productId){
+        return productImgDao.deleteProductImgByProductId(productId);
+    }
     /**
      * 删除商品图片信息管理信息
      *
