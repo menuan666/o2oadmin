@@ -37,9 +37,9 @@ public class Shop {
     //超级管理员给店家的提醒
     private String advice;
     //区域
-    private Area area;
+    private Long areaId;
     //用户信息
-    private PersonInfo owner;
+    private Long ownerId;
     //店铺类别
-    private ShopCategory shopCategory;
+    private Long shopCategoryId;
 }
