@@ -27,7 +27,8 @@ public class ProductController {
 
     @RequestMapping(value = "/productlist",method = RequestMethod.GET)
     @ResponseBody
-    public DataGridViewResult list(int page,int limit,String productName, Integer productCategoryId, Integer shopId,Integer enableStatus) {
+    public DataGridViewResult list(int page,int limit,String productName,
+                                   Integer productCategoryId, Integer shopId,Integer enableStatus) {
         System.out.println("page:"+page+",limit:"+limit+",productName:"+productName+",productCategoryId:"+productCategoryId+",shopId:"+shopId+",enableStatus:"+enableStatus);
         //设置分页信息(当前页码,每页显示数量)
         PageHelper.startPage(page, limit);

@@ -62,10 +62,14 @@ public class ProductServiceImpl implements ProductService {
      * @return 结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteProductByProductIds(String productIds)
     {
         String[] str = productIds.split(",");
         System.out.println(Arrays.toString(str));
+        for (int i = 0;i<str.length;i++){
+            productImgService.deleteProductImgByProductId(Long.valueOf(str[i]));
+        }
         return productDao.deleteProductByProductIds(str);
     }
 

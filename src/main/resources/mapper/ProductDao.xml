@@ -32,6 +32,7 @@
             <if test="productCategoryId != null "> and product_category_id = #{productCategoryId}</if>
             <if test="shopId != null "> and shop_id = #{shopId}</if>
         </where>
+        order by product_id desc
     </select>
 
     <select id="selectProductByProductId" parameterType="Long" resultMap="ProductResult">
