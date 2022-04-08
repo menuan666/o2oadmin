@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o2oadmin.dao.HeadLineDao">
+
+    <resultMap type="HeadLine" id="HeadLineResult">
+        <result property="lineId"    column="line_id"    />
+        <result property="lineName"    column="line_name"    />
+        <result property="lineLink"    column="line_link"    />
+        <result property="lineImg"    column="line_img"    />
+        <result property="priority"    column="priority"    />
+        <result property="enableStatus"    column="enable_status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="lastEditTime"    column="last_edit_time"    />
+    </resultMap>
+
+    <sql id="selectHeadLineVo">
+        select line_id, line_name, line_link, line_img, priority, enable_status, create_time, last_edit_time from tb_head_line
+    </sql>
+
+    <select id="selectHeadLineList" parameterType="HeadLine" resultMap="HeadLineResult">
+        <include refid="selectHeadLineVo"/>
+        <where>
+            <if test="lineName != null  and lineName != ''"> and line_name like concat('%', #{lineName}, '%')</if>
+            <if test="enableStatus != null "> and enable_status = #{enableStatus}</if>
+        </where>
+    </select>
+
+    <select id="selectHeadLineByLineId" parameterType="Long" resultMap="HeadLineResult">
+        <include refid="selectHeadLineVo"/>
+        where line_id = #{lineId}
+    </select>
+
+    <insert id="insertHeadLine" parameterType="HeadLine" useGeneratedKeys="true" keyProperty="lineId">
+        insert into tb_head_line
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lineName != null and lineName != ''">line_name,</if>
+            <if test="lineLink != null">line_link,</if>
+            <if test="lineImg != null and lineImg != ''">line_img,</if>
+            <if test="priority != null">priority,</if>
+            <if test="enableStatus != null">enable_status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="lastEditTime != null">last_edit_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lineName != null and lineName != ''">#{lineName},</if>
+            <if test="lineLink != null">#{lineLink},</if>
+            <if test="lineImg != null and lineImg != ''">#{lineImg},</if>
+            <if test="priority != null">#{priority},</if>
+            <if test="enableStatus != null">#{enableStatus},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="lastEditTime != null">#{lastEditTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateHeadLine" parameterType="HeadLine">
+        update tb_head_line
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="lineName != null and lineName != ''">line_name = #{lineName},</if>
+            <if test="lineLink != null">line_link = #{lineLink},</if>
+            <if test="lineImg != null and lineImg != ''">line_img = #{lineImg},</if>
+            <if test="priority != null">priority = #{priority},</if>
+            <if test="enableStatus != null">enable_status = #{enableStatus},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
+        </trim>
+        where line_id = #{lineId}
+    </update>
+
+    <delete id="deleteHeadLineByLineId" parameterType="Long">
+        delete from tb_head_line where line_id = #{lineId}
+    </delete>
+
+    <delete id="deleteHeadLineByLineIds" parameterType="String">
+        delete from tb_head_line where line_id in
+        <foreach item="lineId" collection="array" open="(" separator="," close=")">
+            #{lineId}
+        </foreach>
+    </delete>
+
+</mapper>
