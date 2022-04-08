@@ -20,7 +20,7 @@ public class ShopCategory {
     //店铺图片
     private String shopCategoryImg;
     //权重
-    private Integer priotity;
+    private Integer priority;
     //创建时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
@@ -28,6 +28,6 @@ public class ShopCategory {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastEditTime;
     //上级ID
-    private ShopCategory parent;
+    private Long parentId;
 
 }

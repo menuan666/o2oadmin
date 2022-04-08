@@ -51,7 +51,7 @@
         <a href="javascript:">店铺管理</a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
             <dd><a id="shopmanage">店铺管理</a></dd>
-            <dd><a id="shopmanage1">店铺类别管理</a></dd>
+            <dd><a id="shopcategory">店铺类别管理</a></dd>
         </dl>
     </li>
     <li class="layui-nav-item">
@@ -168,6 +168,12 @@
             $('#manageiframe').show();
             //$("#areadiv").removeAttr("hidden");
             $('#manageiframe').attr("src", "/manage/headline");
+        })
+        $('#shopcategory').click(function (){
+            $('#index').hide();
+            $('#manageiframe').show();
+            //$("#areadiv").removeAttr("hidden");
+            $('#manageiframe').attr("src", "/manage/shopcategory");
         })
     });
 </script>

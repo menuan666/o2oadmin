@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.o2oadmin.dao.ShopCategoryDao">
+
+    <resultMap type="ShopCategory" id="ShopCategoryResult">
+        <result property="shopCategoryId"    column="shop_category_id"    />
+        <result property="shopCategoryName"    column="shop_category_name"    />
+        <result property="shopCategoryDesc"    column="shop_category_desc"    />
+        <result property="shopCategoryImg"    column="shop_category_img"    />
+        <result property="priority"    column="priority"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="lastEditTime"    column="last_edit_time"    />
+        <result property="parentId"    column="parent_id"    />
+    </resultMap>
+
+    <sql id="selectShopCategoryVo">
+        select shop_category_id, shop_category_name, shop_category_desc, shop_category_img, priority, create_time, last_edit_time, parent_id from tb_shop_category
+    </sql>
+
+    <select id="selectShopCategoryList" parameterType="ShopCategory" resultMap="ShopCategoryResult">
+        <include refid="selectShopCategoryVo"/>
+        <where>
+            <if test="shopCategoryName != null  and shopCategoryName != ''"> and shop_category_name like concat('%', #{shopCategoryName}, '%')</if>
+            <if test="shopCategoryDesc != null  and shopCategoryDesc != ''"> and shop_category_desc like concat('%', #{shopCategoryDesc}, '%')</if>
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+        </where>
+        order by shop_category_id desc
+    </select>
+
+    <select id="selectShopCategoryByShopCategoryId" parameterType="Long" resultMap="ShopCategoryResult">
+        <include refid="selectShopCategoryVo"/>
+        where shop_category_id = #{shopCategoryId}
+    </select>
+
+    <insert id="insertShopCategory" parameterType="ShopCategory" useGeneratedKeys="true" keyProperty="shopCategoryId">
+        insert into tb_shop_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopCategoryName != null and shopCategoryName != ''">shop_category_name,</if>
+            <if test="shopCategoryDesc != null">shop_category_desc,</if>
+            <if test="shopCategoryImg != null">shop_category_img,</if>
+            <if test="priority != null">priority,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="lastEditTime != null">last_edit_time,</if>
+            <if test="parentId != null">parent_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopCategoryName != null and shopCategoryName != ''">#{shopCategoryName},</if>
+            <if test="shopCategoryDesc != null">#{shopCategoryDesc},</if>
+            <if test="shopCategoryImg != null">#{shopCategoryImg},</if>
+            <if test="priority != null">#{priority},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="lastEditTime != null">#{lastEditTime},</if>
+            <if test="parentId != null">#{parentId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateShopCategory" parameterType="ShopCategory">
+        update tb_shop_category
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="shopCategoryName != null and shopCategoryName != ''">shop_category_name = #{shopCategoryName},</if>
+            <if test="shopCategoryDesc != null">shop_category_desc = #{shopCategoryDesc},</if>
+            <if test="shopCategoryImg != null">shop_category_img = #{shopCategoryImg},</if>
+            <if test="priority != null">priority = #{priority},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+        </trim>
+        where shop_category_id = #{shopCategoryId}
+    </update>
+
+    <delete id="deleteShopCategoryByShopCategoryId" parameterType="Long">
+        delete from tb_shop_category where shop_category_id = #{shopCategoryId}
+    </delete>
+
+    <delete id="deleteShopCategoryByShopCategoryIds" parameterType="String">
+        delete from tb_shop_category where shop_category_id in
+        <foreach item="shopCategoryId" collection="array" open="(" separator="," close=")">
+            #{shopCategoryId}
+        </foreach>
+    </delete>
+
+</mapper>
