@@ -2,18 +2,15 @@ package com.o2oadmin.web;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.o2oadmin.entity.Area;
 import com.o2oadmin.entity.ProductImg;
-import com.o2oadmin.service.AreaService;
 import com.o2oadmin.service.ProductImgService;
-import com.o2oadmin.unity.DataGridViewResult;
+import com.o2oadmin.util.DataGridViewResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -53,4 +53,9 @@ public class manageController {
         //首页
         return "/manage/shopmanage";
     }
+    @RequestMapping(value = "/headline", method = RequestMethod.GET)
+    public String headline() {
+        //首页
+        return "/manage/headlinemanage";
+    }
 }

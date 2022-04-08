@@ -47,7 +47,6 @@ public class HeadLineServiceImpl implements HeadLineService {
     @Override
     public int insertHeadLine(HeadLine HeadLine)
     {
-        HeadLine.setCreateTime(new Date());
         return headLineDao.insertHeadLine(HeadLine);
     }
 

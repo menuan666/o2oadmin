@@ -30,6 +30,7 @@
         <a href="javascript:">数据管理</a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
             <dd><a id="area">区域信息管理</a></dd>
+            <dd><a id="headline">头条信息管理</a></dd>
         </dl>
     </li>
     <li class="layui-nav-item">
@@ -161,6 +162,12 @@
             $('#manageiframe').show();
             //$("#areadiv").removeAttr("hidden");
             $('#manageiframe').attr("src", "/manage/shop");
+        })
+        $('#headline').click(function (){
+            $('#index').hide();
+            $('#manageiframe').show();
+            //$("#areadiv").removeAttr("hidden");
+            $('#manageiframe').attr("src", "/manage/headline");
         })
     });
 </script>

@@ -2,12 +2,10 @@ package com.o2oadmin.web;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.o2oadmin.entity.Area;
 import com.o2oadmin.entity.LocalAuth;
-import com.o2oadmin.service.AreaService;
 import com.o2oadmin.service.LocalAuthService;
-import com.o2oadmin.unity.DataGridViewResult;
-import com.o2oadmin.unity.MD5;
+import com.o2oadmin.util.DataGridViewResult;
+import com.o2oadmin.util.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

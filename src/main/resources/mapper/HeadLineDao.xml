@@ -25,6 +25,7 @@
             <if test="lineName != null  and lineName != ''"> and line_name like concat('%', #{lineName}, '%')</if>
             <if test="enableStatus != null "> and enable_status = #{enableStatus}</if>
         </where>
+        order by line_id desc
     </select>
 
     <select id="selectHeadLineByLineId" parameterType="Long" resultMap="HeadLineResult">

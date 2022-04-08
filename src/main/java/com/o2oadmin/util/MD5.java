@@ -1,4 +1,4 @@
-package com.o2oadmin.unity;
+package com.o2oadmin.util;
 
 import java.security.MessageDigest;
 
